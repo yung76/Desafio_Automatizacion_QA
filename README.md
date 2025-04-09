@@ -1,53 +1,98 @@
-# Desaf&iacute;o Automatizaci&oacute;n QA
-* Realice el siguiente flujo utilizando Selenium con el lenguaje de programaci&oacute;n que prefiera.
-  
-- Ingresar a http://opencart.abstracta.us/index.php?route=common/home
-- Añadir al carro de compras un Ipod Classic
-- Añadir al carro de compras un iMac
-- Proceder a realizar la compra
-- Realizar login con credenciales obtenidas de un archivo externo a elección (basta que sea un email con estructura válida y contraseña)
-- Crear una cuenta
-- Continuar con la compra y llegar a la orden completa
-- Visitar el historial de ordenes y validar resumen de orden 
-- Cerrar sesión
+# OpenCart Automation - Selenium Test Suite
 
-# Validaciones m&iacute;nimas 
+## Autor
 
-- Tomar evidencia de cada producto añadido al carro
-- Validar que los articulos en el carro sean Ipod Classic y iMac
-- Evidencia de creación de la cuenta
-- Evidencia de paso a paso de checkout
-- Validar que despacho y costo sea = Flat Shipping Rate - $5.00
-- Evidencia de costo final de la orden
-- Evidencia de orden completa
-- Evidencia de apartado "Order History" y validar el estado de la compra se encuentre en estado "Pending"
-- Validar datos de dirección de pago v/s los ingresados al crear la cuenta
- 
+**Nombre:** Marcos Medina  
+**Fecha:** Abril 2025
 
-# Puntaje extra 
+## Descripción
+Test automatizado de OpenCart utilizando Selenium WebDriver con TestNG. El código realiza pruebas de extremo a extremo sobre la funcionalidad del carrito de compras, incluyendo:
 
-1 Añadir al carrito dos PC HP LP3065
-  - Delivery Date = Calendario con fecha de mañana
-  - Validar que la memoria del equipo es de 16GB
-  - Escribir un review ingresando un texto de largo menor a 25 carateres y obtener mensaje de warning
-  - Escribir un review válido = Your Name,  Your review y Rating neutral (radio button central) y obtener mensaje de ingreso correcto 
+- Búsqueda y agregado de productos al carrito.
+- Visualización del carrito y validación de los productos.
+- Añadir productos adicionales y validar la cantidad de memoria
+- Inicio de sesión
+- Registro de usuario.
+- Proceso de compra completo (Checkout).
+- Verificación del historial de pedidos.
+- LogOut
+- Comparacion de productos
 
-2 Comparar los productos: Apple Cinema 30" y Samsung SyncMaster 941BW 
-  - Evidencia de cuadro comparativo de ambos productos
-    
-Se ponderará la cantidad de valores ingresados en duro y la documentación del código.
+## Tecnologías utilizadas
+- Intellij IDEA
+- Java (JDK 17)
+- Selenium WebDriver
+- TestNG
+- WebDriverManager
 
-# Entregables
+## Estructura del código
 
-- Archivo de entrada de data para la ejecución de la automatización
-- Archivo/s de salida (Reporte, log, evidencias tomadas)
-- La solución debe contener un README.md con la documentación de la automatización:
-- Pre requisitos
-- Instrucciones para ejecutar
-- Detalle Flujo
-- Debe ser enviada vía un pull request a este repositorio https://github.com/previred/Desafio_Automatizacion_QA 
-- En el detalle del commit debes indicar los siguientes datos (Nombre Completo y Correo Electrónico)
+```plaintext
+src/test/java/org/example
+ ┣ OpenCartTest.java      # Código principal del test automatizado
+ ┣ resources
+ ┃ ┗ credentials.properties  # Archivo con las credenciales de login
+screenshots              # Directorio donde se guardan las capturas de pantalla
+images                   # imagenes de apoyo visual
 
+```
 
-# NOTA: 
-El sitio de prueba suele presentar error de l&iacute;mite de accesos, basta repetir la consulta para poder llegar la opci&oacute;n requerida.
+## Pre-requisitos
+
+Antes de ejecutar el test, asegúrate de tener:
+1. Instalar Intellij IDEA
+2. JDK 17 o superior instalado o configurado en el mismo IDEA.
+   ![](images/img1.png)
+3. Maven configurado para gestionar las dependencias.
+4. Chrome y WebDriverManager instalados.
+
+## Configuración
+
+1. Con Intellij puedes clonar el repositorio directamente.
+
+2. Ya descargado el codigo Intellij desde sus notificaciones identificara el proyecto maven, click en `Load Maven Proyect`
+   ![](images/img2.png)
+## Como ejecutar test
+
+1. Desde el mismo IDE al costado de la clase "OpenCartTest" aparecera un boton "Play" verde, click y empezara a realizar las pruebas.
+
+   ![](images/img3.png)
+2. O si bien desde la consola o terminal ejecutar el comando
+```
+mvn clean test
+```
+## Casos de prueba
+
+### Test 1: Agregar productos al carrito
+- Búsqueda y adición de productos (`iPod Classic` e `iMac`).
+- Captura de pantalla después de agregar productos.
+
+### Test 2: Ver carrito y validar productos
+- Abrir el carrito y verificar productos agregados.
+
+### Test 3: Añadir productos adicionales al carrito de compra
+- Inicio de sesión con credenciales almacenadas.
+- Se añaden dos el producto ( `HP LP3065`)
+- Se establece fecha de delivery dia de mañana.
+- Valida la cantidad de memoria
+- Se ingresan menos de 25 caracteres y se valida el mensaje de advertencia
+- Se ingresa una review correcta y se valida el mensaje de exito
+
+### Test 4: Inicio de sesión y registro
+- Inicio de sesión con credenciales almacenadas.
+
+### Test 5: Proceso de compra
+- Selección del país y estado con `Select` de Selenium.
+- Validación del método de envío (`Flat Shipping Rate - $5.00`).
+- Verificación del total del pedido antes del pago.
+
+### Test 6: Verificación del historial de pedidos
+- Confirmación del pedido.
+- Verificación del estado del pedido en `"Pending"`.
+
+### Test 7: Registro de Usuario
+- Registro si el usuario no está registrado.
+
+### Test 8: Comparacion de productos
+- Compara los productos (`Apple Cinema 30" y Samsung SyncMaster 941BW`).
+
